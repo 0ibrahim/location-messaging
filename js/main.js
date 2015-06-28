@@ -69,7 +69,6 @@ function addMessageToGroup(authData, groupID, data, format) {
 	if(groupID && data) {
 		var groupRef = groupsRef.child(groupID);
 		if(groupRef) {
-			alert(authData.facebook.displayName);
 			var messagesRef = groupRef.child("messages");
 			messagesRef.push({
 				name: authData.facebook.displayName,
