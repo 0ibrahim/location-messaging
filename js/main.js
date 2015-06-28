@@ -71,7 +71,11 @@ var main = function(authData) {
 			if(groupRef) {
 				alert("here");
 				var messagesRef = new Firebase(groupRef.toString() + "/messages/");
-				messagesRef.push({userid: "test", format: format, data: data});	
+				messagesRef.push({
+					name: authData.facebook.displayName,
+					format: format, 
+					data: data
+				});	
 			}
 		}
 		else {
