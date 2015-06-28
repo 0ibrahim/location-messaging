@@ -88,3 +88,7 @@ function renderGroup(groupID) {
 		$("#container").html(data);
 	});
 }
+
+$("#showgroup").click(function(){
+	renderGroup('-JssViIhdHrQ13HbYFd0');
+});

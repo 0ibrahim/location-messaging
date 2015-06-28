@@ -1,14 +1,25 @@
 groupsRef.on("value", function(snapshot) {
 	var groups = snapshot.val();
-	for(group in groups) {
-		console.log(group);
+	var viewcounts = [];
+	var totalViewcount = 0;
+	for(groupID in groups) {
+		var viewcount = groups[groupID].viewcount;
+		console.log(viewcount);
+		viewcounts.push(viewcount);
+		totalViewcount += viewcount;
 	}
+	//CHANGE THIS FUNCTION
 	function getsize(k)
 	{
-		return k/10;
+		if(totalViewcount != 0) {
+			return viewcounts[k]/totalViewcount + 0.1;
+		}
+		else {
+			return 0.1;
+		}
 	}
-	var n = 10, // total number of nodes
-		m = 10; // number of distinct clusters
+	var n = viewcounts.length;
+		m = n; // number of distinct clusters
 
 	var width = window.innerWidth*0.95,
 		height = window.innerHeight*0.95,
@@ -21,7 +32,7 @@ groupsRef.on("value", function(snapshot) {
 
 	// The largest node for each cluster.
 	var clusters = new Array(m);
-	var k=1;
+	var k=0;
 	var nodes = d3.range(m).map(function() {
 	  var i = k,
 		  r = getsize(k)* maxRadius,
