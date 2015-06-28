@@ -1,11 +1,15 @@
 groupsRef.on("value", function(snapshot) {
 	var groups = snapshot.val();
 	var groupIDs = [];
+	var groupNames = [];
 	var viewcounts = [];
 	var totalViewcount = 0;
 	for(groupID in groups) {
 		var viewcount = groups[groupID].viewcount;
+		var groupName = groups[groupID].name;
+
 		viewcounts.push(viewcount);
+		groupNames.push(groupName);
 		groupIDs.push(groupID);
 		totalViewcount += viewcount;
 	}
@@ -69,9 +73,18 @@ groupsRef.on("value", function(snapshot) {
 			viewcountRef.transaction(function(currentValue) {
 				return (currentValue || 0) + 1;
 			});
+			//console.log(d + "," + i);
 			showGroup(groupIDs[i]);
-		})
-		.call(force.drag);
+		});
+
+	node.append("text")
+    .text(function(d, i){
+    	console.log(groupNames[i]);
+    })
+    .attr({
+      "alignment-baseline": "middle",
+      "text-anchor": "middle"
+    })
 
 	node.transition()
 		.duration(750)

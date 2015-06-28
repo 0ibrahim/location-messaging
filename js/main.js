@@ -105,4 +105,7 @@ $("#more").click(function() {
 	$("#groupNameInput").focus();
 });
 
+function alerter() {
+	alert("here");
+}
 
