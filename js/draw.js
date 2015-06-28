@@ -52,23 +52,15 @@ groupsRef.on("value", function(snapshot) {
 	  return d;
 	});
 
-	var force = d3.layout.force()
-		.nodes(nodes)
-		.size([width, height])
-		.gravity(.02)
-		.charge(0)
-		.on("tick", tick)
-		.start();
+	var svgContainer = d3.select("body").append("svg")
+                                     .attr("width", width)
+                                     .attr("height", height);
 
-	var svg = d3.select("body").append("svg")
-		.attr("width", width)
-		.attr("height", height);
-
-	var node = svg.selectAll("circle")
-		.data(nodes)
-		.enter().append("circle")
-		.style("fill", function(d) { return color(d.cluster); })
-		.on("click", function(d, i) {
+    var circles = svgContainer.selectAll("circle")
+                           .data(nodes)
+                           .enter()
+                           .append("circle")
+                           .on("click", function(d, i) {
 			var viewcountRef = new Firebase(firebaseRefURL + "groups/" + groupIDs[i] + "/viewcount");
 			viewcountRef.transaction(function(currentValue) {
 				return (currentValue || 0) + 1;
@@ -77,29 +69,47 @@ groupsRef.on("value", function(snapshot) {
 			showGroup(groupIDs[i]);
 		});
 
-	node.append("text")
-    .text(function(d, i){
-    	console.log(groupNames[i]);
-    })
-    .attr({
-      "alignment-baseline": "middle",
-      "text-anchor": "middle"
-    })
+	var circleAttributes = circles
+                       .attr("cx", function (d) { return d.x; })
+                       .attr("cy", function (d) { return d.y; })
+                       .attr("r", function (d) { return d.radius; })
+      					.style("fill", function(d) { return color(d.cluster); })
 
-	node.transition()
-		.duration(750)
-		.delay(function(d, i) { return i * 5; })
-		.attrTween("r", function(d) {
-		  var i = d3.interpolate(0, d.radius);
-		  return function(t) { return d.radius = i(t); };
-		});
+
+var text = svgContainer.selectAll("text")
+                       .data(nodes)
+                        .enter()
+                        .append("text");
+
+                        var textLabels = text
+                .attr("x", function(d) { return d.x; })
+                .attr("y", function(d) { return d.y; })
+                .text( function (d) { return groupNames[d.cluster]; })
+                .attr("font-family", "sans-serif")
+                .attr("font-size", "20px")
+                 .attr("fill", "red");
+
+	var force = d3.layout.force()
+		.nodes(nodes)
+		.size([width, height])
+		.gravity(.02)
+		.charge(0)
+		.on("tick", tick)
+		.start();
+
+
 
 	function tick(e) {
-	  node
+	  circles
 		  .each(cluster(10 * e.alpha * e.alpha))
 		  .each(collide(.5))
 		  .attr("cx", function(d) { return d.x; })
 		  .attr("cy", function(d) { return d.y; });
+	  text
+		  .each(cluster(10 * e.alpha * e.alpha))
+		  .each(collide(.5))
+		  .attr("x", function(d) { return d.x; })
+		  .attr("y", function(d) { return d.y; });
 	}
 
 	// Move d to be adjacent to the cluster node.
