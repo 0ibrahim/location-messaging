@@ -21,18 +21,6 @@
     padding: 0;
     border: 0; }
 
-.black_overlay{
-  position: absolute;
-  top: 0%;
-  left: 0%;
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  z-index:1001;
-  -moz-opacity: 0.8;
-  opacity:.80;
-  filter: alpha(opacity=80);
-}
 
 #addgroup {
   display: none;
@@ -44,7 +32,7 @@
 
 .example-chat {
   position: absolute;
-  top: 25%;
+  top: 100px;
   left:35%;
   background-color: white;
   z-index:1002;
@@ -101,7 +89,7 @@
       position: absolute;
       top: 10px;
       left: 20px;
-      z-index: 1; }
+      z-index: 1002; }
     .example-chat .example-chat-toolbar input {
       box-shadow: none;
       border: 1px solid #FFF;
@@ -114,7 +102,7 @@
     list-style: none;
     margin: 0px;
     padding: 20px;
-    height: 200px;
+    height: 300px;
     overflow: auto; }
     .example-chat ul li {
       margin-bottom: 10px;

@@ -10,9 +10,7 @@
   	</footer>
 
 	<script>
-		//Move to own file
-		//make curGroupID not global if possible
-		//take care if no messages
+		
 		var groupsURL = firebaseRefURL + "groups/"
 		var groupURL = groupsURL + curGroupID;
 		var groupRef = new Firebase(groupURL);
@@ -47,7 +45,7 @@
 
 $("span.right").click(function() {
 	$("#chatBox").hide(500);
-	$("#chatBox").html("");
+	//$("#chatBox").html("");
 });
 	</script>
 </div>

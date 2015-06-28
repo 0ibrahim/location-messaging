@@ -78,7 +78,8 @@ function showGroup(groupID) {
 	$.get( "static_pages/show_group.html", function( data ) {
 		$("#chatBox").hide();
 		$("#chatBox").html(data);
-		$("#chatBox").show(500);
+		$("#chatBox").fadeIn(500);
+		$("#messageInput").focus();
 	});
 }
 
@@ -101,6 +102,7 @@ $("#fade").click(unDimAddGroup);
 $("#more").click(function() {
 	$("#fade").fadeIn(500);
 	$("#addgroup").fadeIn(500);
+	$("#groupNameInput").focus();
 });
 
 
