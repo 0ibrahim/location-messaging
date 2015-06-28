@@ -78,8 +78,8 @@ function addMessageToGroup(authData, groupID, data, format) {
 function showGroup(groupID) {
 	curGroupID = groupID;
 	$.get( "static_pages/show_group.html", function( data ) {
-		$("#container").hide();
-		$("#container").html(data);
-		$("#container").show(500);
+		$("#chatBox").hide();
+		$("#chatBox").html(data);
+		$("#chatBox").show(500);
 	});
 }

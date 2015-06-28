@@ -64,6 +64,11 @@
     //SCROLL TO BOTTOM OF MESSAGE LIST
     messageList[0].scrollTop = messageList[0].scrollHeight;
   });
+
+  $("span .right").click(function(){
+    $("#chatBox").hide(500);
+    $("#chatBox").html("");
+  });
 </script>
 </body>
 </html>
