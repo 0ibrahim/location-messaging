@@ -1,0 +1,31 @@
+<div id="group">
+	<div id="groupName">
+	</div>
+	
+	<div id="groupMessages">
+		<ul id="messageList">
+		</ul>
+	</div>
+
+	<script>
+
+		var groupsURL = firebaseRefURL + "groups/"
+		var groupURL = groupsURL + curGroupID;
+		var groupRef = new Firebase(groupURL);
+		var messagesRef = new Firebase(groupURL + "/messages/");
+
+		messagesRef.limitToLast(10).on('child_added', function (snapshot) {
+			var data = snapshot.val();
+  			var username = data.name || "anonymous";
+    		var message = data.data;
+    		$("#groupName").text(username);
+  	 		
+  	 		var messageElement = $("<li>");
+    		messageList = $("#messageList");
+    		messageElement.text(username + ": " + message);
+		    messageList.append(messageElement)
+    		messageList[0].scrollTop = messageList[0].scrollHeight;
+		});
+
+	</script>
+</div>
