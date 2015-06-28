@@ -1,6 +1,7 @@
 var firebaseRef = new Firebase("https://luminous-torch-1983.firebaseio.com/");
 var groupsRef = new Firebase(firebaseRef + "groups/");
-var geoFire = new GeoFire(firebaseRef);
+var geoRef = new Firebase(firebaseRef + "geo/");
+var geoFire = new GeoFire(geoRef);
 
 var groupRef;
 var curGroupID;
@@ -13,7 +14,7 @@ function createGroup(groupName) {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			var latitude = position.coords.latitude;
 			var longitude = position.coords.longitude;
-			firebaseRef.push({name: groupName, location: [latitude, longitude]});
+			var groupID = groupsRef.push({name: groupName, location: [latitude, longitude]});
 			geoFire.set(groupName, [latitude, longitude]).then(function() {
 			  console.log("Provided key has been added to GeoFire");
 			}, function(error) {
@@ -33,14 +34,10 @@ function getGroups() {
 	}
 }
 
-// Should not be called multiple times
 function getGroupFromPosition(position) {
 	var geoQuery = geoFire.query({
 		center: [position.coords.latitude, position.coords.longitude],
 		radius: RADIUS,
-	});
-	var onReadyRegistration = geoQuery.on("ready", function() {
-	  console.log("GeoQuery has loaded and fired all other events for initial data");
 	});
 	var onKeyEnteredRegistration = geoQuery.on("key_entered", function(key, location, distance) {
 	  console.log(key + " entered query at " + location + " (" + distance + " km from center)");
@@ -48,6 +45,7 @@ function getGroupFromPosition(position) {
 }
 
 document.getElementById('new-group').onclick = function() {createGroup('testing')};
+document.getElementById('near-me').onclick = getGroups
 
 function addMessageToGroup(groupID, data, format) {
 	if(groupID && data) {
