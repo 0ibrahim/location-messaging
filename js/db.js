@@ -9,7 +9,7 @@ function createGroup(groupName) {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			var latitude = position.coords.latitude;
 			var longitude = position.coords.longitude;
-			firebaseRef.push({name: groupName, location: [latitude, longitude]});
+			groupsRef.push({name: groupName, location: [latitude, longitude]});
 			geoFire.set(groupName, [latitude, longitude]).then(function() {
 			  console.log("Provided key has been added to GeoFire");
 			}, function(error) {
@@ -29,14 +29,10 @@ function getGroups() {
 	}
 }
 
-// Should not be called multiple times
 function getGroupFromPosition(position) {
 	var geoQuery = geoFire.query({
 		center: [position.coords.latitude, position.coords.longitude],
 		radius: RADIUS,
-	});
-	var onReadyRegistration = geoQuery.on("ready", function() {
-	  console.log("GeoQuery has loaded and fired all other events for initial data");
 	});
 	var onKeyEnteredRegistration = geoQuery.on("key_entered", function(key, location, distance) {
 	  console.log(key + " entered query at " + location + " (" + distance + " km from center)");
