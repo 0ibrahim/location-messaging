@@ -1,3 +1,4 @@
+//TODO: make this change dynamically (currently unregisters at end)
 groupsRef.on("value", function(snapshot) {
 	var groups = snapshot.val();
 	var groupIDs = [];

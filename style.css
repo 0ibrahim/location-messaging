@@ -1,3 +1,8 @@
+.logout {
+	position: absolute;
+	top: 2%;
+	right: 2%;
+}
 .round-button {
 	width:5%;
 	position:absolute;
