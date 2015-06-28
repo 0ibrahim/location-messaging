@@ -7,8 +7,11 @@
 		</ul>
 	</div>
 
-	<script>
+	<div id="addMessage">
+		<input type='text' id='messageInput'  placeholder='Type a message...'>
+	</div>
 
+	<script>
 		var groupsURL = firebaseRefURL + "groups/"
 		var groupURL = groupsURL + curGroupID;
 		var groupRef = new Firebase(groupURL);
