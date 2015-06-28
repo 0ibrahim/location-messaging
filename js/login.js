@@ -1,6 +1,7 @@
 var ref = new Firebase("https://luminous-torch-1983.firebaseio.com");
 ref.onAuth(function(authData) {
 	if (authData !== null) {
+		globalAuthData = authData;
 		console.log("Authenticated successfully with payload:", authData);
 	} else {
 		// Try to authenticate with Google via OAuth redirection

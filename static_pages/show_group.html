@@ -1,4 +1,6 @@
 <div id="group">
+	<div id="groupid">
+	</div>
 	<div id="groupName">
 	</div>
 	
@@ -7,25 +9,42 @@
 		</ul>
 	</div>
 
-	<script>
+	<div id="addMessage">
+		<input type='text' id='messageInput'  placeholder='Type a message...'>
+	</div>
 
+	<script>
 		var groupsURL = firebaseRefURL + "groups/"
 		var groupURL = groupsURL + curGroupID;
 		var groupRef = new Firebase(groupURL);
 		var messagesRef = new Firebase(groupURL + "/messages/");
 
+		groupRef.child("name").on("value", function(snap) {
+			$("#groupName").text(snap.val());
+		});		
+
 		messagesRef.limitToLast(10).on('child_added', function (snapshot) {
 			var data = snapshot.val();
   			var username = data.name || "anonymous";
-    		var message = data.data;
-    		$("#groupName").text(username);
-  	 		
+    		var message = data.data;  	 		
   	 		var messageElement = $("<li>");
     		messageList = $("#messageList");
     		messageElement.text(username + ": " + message);
 		    messageList.append(messageElement)
     		messageList[0].scrollTop = messageList[0].scrollHeight;
 		});
+
+		$("#messageInput").keypress(function (e) {
+    		if (e.keyCode == 13) {
+      			//FIELD VALUES
+      			messageField = $("#messageInput");
+      			var message = messageField.val();
+
+      			addMessageToGroup(globalAuthData, curGroupID, message, "txt");
+      			//SAVE DATA TO FIREBASE AND EMPTY FIELD
+      			messageField.val('');
+    		}
+  		});	
 
 	</script>
 </div>
