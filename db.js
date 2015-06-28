@@ -14,3 +14,15 @@ function createGroup(groupName) {
 }
 
 document.getElementById('new-group').onclick = createGroup('testing');
+
+function addMessageToGroup(groupID, data, format) {
+	if(groupID && data) {
+		var groupRef = firebaseRef.child(groupID);
+		var messagesRef = groupRef.child(messages);
+		messagesRef.push({userid: auth.id, format: format, data: data});	
+	}
+	else {
+		alert("Error");
+		return
+	}
+}
