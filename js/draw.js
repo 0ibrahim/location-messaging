@@ -30,7 +30,7 @@ groupsRef.on("value", function(snapshot) {
 		height = window.innerHeight*0.95,
 		padding = Math.min(width,height)/n, // separation between same-color nodes
 		clusterPadding = Math.min(width,height)/m, // separation between different-color nodes
-		maxRadius = (1/n)*Math.min(width,height);
+		maxRadius = (0.05*n)*Math.min(width,height);
 
 	var color = d3.scale.category10()
 		.domain(d3.range(m));
@@ -65,7 +65,6 @@ groupsRef.on("value", function(snapshot) {
 			viewcountRef.transaction(function(currentValue) {
 				return (currentValue || 0) + 1;
 			});
-			//console.log(d + "," + i);
 			showGroup(groupIDs[i]);
 		});
 
@@ -87,7 +86,8 @@ var text = svgContainer.selectAll("text")
                 .text( function (d) { return groupNames[d.cluster]; })
                 .attr("font-family", "sans-serif")
                 .attr("font-size", "20px")
-                 .attr("fill", "red");
+				.attr("text-align", "center")
+                 .attr("fill", "white");
 
 	var force = d3.layout.force()
 		.nodes(nodes)
@@ -108,7 +108,7 @@ var text = svgContainer.selectAll("text")
 	  text
 		  .each(cluster(10 * e.alpha * e.alpha))
 		  .each(collide(.5))
-		  .attr("x", function(d) { return d.x; })
+		  .attr("x", function(d) { return d.x*0.96; })
 		  .attr("y", function(d) { return d.y; });
 	}
 
