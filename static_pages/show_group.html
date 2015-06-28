@@ -1,29 +1,23 @@
-<div id="group" class="example-chat l-demo-container">
-	<div id="groupid">
-	</div>
-	<div id="groupName" class="example-chat-toolbar">
-	</div>
-	
-	<div id="groupMessages">
-		<ul id="messageList" class="example-chat-messages">
-		</ul>
-	</div>
+<div class="example-chat l-demo-container">
+  	<header>
+  		<span class="left">Firebase Chat Demo</span>
+  		<span class="right">x  </span>
+  	</header>
+  	<ul id='example-messages' class="example-chat-messages"></ul>
 
-	<div id="addMessage">
-		<input type='text' id='messageInput'  placeholder='Type a message...'>
-	</div>
+  	<footer>
+    	<input type='text' id='messageInput'  placeholder='Type a message...'>
+  	</footer>
 
 	<script>
-		//Move to own file
-		//make curGroupID not global if possible
-		//take care if no messages
+		
 		var groupsURL = firebaseRefURL + "groups/"
 		var groupURL = groupsURL + curGroupID;
 		var groupRef = new Firebase(groupURL);
 		var messagesRef = new Firebase(groupURL + "/messages/");
 
 		groupRef.child("name").on("value", function(snap) {
-			$("#groupName").text(snap.val());
+			$(".example-chat span.left").text(snap.val());
 		});		
 
 		messagesRef.limitToLast(10).on('child_added', function (snapshot) {
@@ -31,7 +25,7 @@
   			var username = data.name || "anonymous";
     		var message = data.data;  	 		
   	 		var messageElement = $("<li>");
-    		messageList = $("#messageList");
+    		messageList = $("#example-messages");
     		messageElement.text(username + ": " + message);
 		    messageList.append(messageElement)
     		messageList[0].scrollTop = messageList[0].scrollHeight;
@@ -49,5 +43,9 @@
     		}
   		});	
 
+$("span.right").click(function() {
+	$("#chatBox").hide(500);
+	//$("#chatBox").html("");
+});
 	</script>
 </div>

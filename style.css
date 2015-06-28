@@ -37,6 +37,7 @@
     font-weight:bold;
     text-decoration:none;
 }
+
 #more
 {
 	position: absolute;
@@ -44,4 +45,17 @@
 	bottom:30%;
 	max-height:50%;
 	max-width:50%;
+}
+
+.black_overlay{
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 0;
+  -moz-opacity: 0.8;
+  opacity:.80;
+  filter: alpha(opacity=80);
 }
