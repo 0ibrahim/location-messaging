@@ -6,11 +6,16 @@ var geoFire = new GeoFire(geoRef);
 var RADIUS = 10.5;
 
 function createGroup(groupName) {
+	// Should make sure the name doesn't already exist!
 	if(navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			var latitude = position.coords.latitude;
 			var longitude = position.coords.longitude;
-			var groupID = groupsRef.push({name: groupName, location: [latitude, longitude]});
+			var groupID = groupsRef.push({
+				name: groupName, 
+				location: [latitude, longitude]
+				viewcount: 0
+			});
 			geoFire.set(groupName, [latitude, longitude]).then(function() {
 			  console.log("Provided key has been added to GeoFire");
 			}, function(error) {
@@ -21,6 +26,7 @@ function createGroup(groupName) {
 		alert("Geolocation is not supported!");
 	}
 }
+document.getElementById('new-group').onclick = function() {createGroup('testing')};
 
 function getGroups() {
 	if(navigator.geolocation) {
@@ -29,6 +35,7 @@ function getGroups() {
 		alert("Geolocation is not supported!");
 	}
 }
+document.getElementById('near-me').onclick = getGroups
 
 function getGroupFromPosition(position) {
 	var geoQuery = geoFire.query({
@@ -40,8 +47,12 @@ function getGroupFromPosition(position) {
 	});
 }
 
-document.getElementById('new-group').onclick = function() {createGroup('testing')};
-document.getElementById('near-me').onclick = getGroups
+function increaseViewcount(groupID) {
+	var viewcountRef = new Firebase(firebaseRefUrl + "groups/" + groupID + "/viewcount");
+	viewcountRef.transaction(function(currentValue) {
+		return (currentValue || 0) + 1;
+	});
+}
 
 function addMessageToGroup(groupID, data, format) {
 	if(groupID && data) {
