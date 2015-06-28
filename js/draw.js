@@ -1,11 +1,12 @@
 groupsRef.on("value", function(snapshot) {
 	var groups = snapshot.val();
+	var groupIDs = [];
 	var viewcounts = [];
 	var totalViewcount = 0;
 	for(groupID in groups) {
 		var viewcount = groups[groupID].viewcount;
-		console.log(viewcount);
 		viewcounts.push(viewcount);
+		groupIDs.push(groupID);
 		totalViewcount += viewcount;
 	}
 	//CHANGE THIS FUNCTION
@@ -63,6 +64,13 @@ groupsRef.on("value", function(snapshot) {
 		.data(nodes)
 		.enter().append("circle")
 		.style("fill", function(d) { return color(d.cluster); })
+		.on("click", function(d, i) {
+			var viewcountRef = new Firebase(firebaseRefURL + "groups/" + groupIDs[i] + "/viewcount");
+			viewcountRef.transaction(function(currentValue) {
+				return (currentValue || 0) + 1;
+			});
+			showGroup(groupIDs[i]);
+		})
 		.call(force.drag);
 
 	node.transition()

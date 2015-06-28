@@ -57,13 +57,6 @@ function incrementViewcount(groupID) {
 	});
 }
 
-function renderGroups() {
-	groupsRef.on("child_added", function(snapshot, prevChildKey) {
-		var newGroup = snapshot.val();
-		// Render group with newGroup.viewcount
-	});
-}
-
 function addMessageToGroup(authData, groupID, data, format) {
 	if(groupID && data) {
 		var groupRef = groupsRef.child(groupID);
@@ -82,13 +75,9 @@ function addMessageToGroup(authData, groupID, data, format) {
 	}
 }
 
-function renderGroup(groupID) {
+function showGroup(groupID) {
 	curGroupID = groupID;
 	$.get( "static_pages/show_group.html", function( data ) {
 		$("#container").html(data);
 	});
 }
-
-$("#showgroup").click(function(){
-	renderGroup('-JssViIhdHrQ13HbYFd0');
-});
