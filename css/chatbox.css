@@ -73,7 +73,7 @@
     padding: 0px 10px;
     height: 30px;
     font-size: 18px;
-    width: 100%;
+    width: 80%;
     font-weight: normal;
     outline: none; }
   .example-chat .example-chat-toolbar {
@@ -210,3 +210,8 @@
         padding: 10px;
 		visibility: visible
       }
+    #cameraIcon
+    {
+      position: relative;
+      bottom:0;
+    }
