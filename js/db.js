@@ -16,12 +16,12 @@ function createGroup(groupName) {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			var latitude = position.coords.latitude;
 			var longitude = position.coords.longitude;
-			var groupID = groupsRef.push({
+			var groupIDRef = groupsRef.push({
 				name: groupName, 
-				location: [latitude, longitude]
-				viewcount: 0
+				location: [latitude, longitude],
+				viewcount: 0,
 			});
-			geoFire.set(groupName, [latitude, longitude]).then(function() {
+			geoFire.set(groupIDRef.key(), [latitude, longitude]).then(function() {
 			  console.log("Provided key has been added to GeoFire");
 			}, function(error) {
 			  console.log("Error: " + error);
@@ -52,10 +52,17 @@ function getGroupFromPosition(position) {
 	});
 }
 
-function increaseViewcount(groupID) {
+function incrementViewcount(groupID) {
 	var viewcountRef = new Firebase(firebaseRefUrl + "groups/" + groupID + "/viewcount");
 	viewcountRef.transaction(function(currentValue) {
 		return (currentValue || 0) + 1;
+	});
+}
+
+function renderGroups() {
+	groupsRef.on("child_added", function(snapshot, prevChildKey) {
+		var newGroup = snapshot.val();
+		// Render group with newGroup.viewcount
 	});
 }
 
