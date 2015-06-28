@@ -29,7 +29,6 @@ function createGroup(groupName) {
 		alert("Geolocation is not supported!");
 	}
 }
-document.getElementById('new-group').onclick = function() {createGroup('testing')};
 
 function getGroups() {
 	if(navigator.geolocation) {
@@ -38,7 +37,6 @@ function getGroups() {
 		alert("Geolocation is not supported!");
 	}
 }
-document.getElementById('near-me').onclick = getGroups
 
 function getGroupFromPosition(position) {
 	var geoQuery = geoFire.query({
@@ -89,7 +87,20 @@ $("#groupNameInput").keypress(function (e) {
     	var groupName = $("#groupNameInput").val();
     	createGroup(groupName);
     	$("#groupNameInput").val("");
+    	unDimAddGroup();
     }
+});
+
+function unDimAddGroup() {
+	$("#fade").fadeOut(500);
+	$("#addgroup").fadeOut(500);
+}
+
+$("#fade").click(unDimAddGroup);
+
+$("#more").click(function() {
+	$("#fade").fadeIn(500);
+	$("#addgroup").fadeIn(500);
 });
 
 
