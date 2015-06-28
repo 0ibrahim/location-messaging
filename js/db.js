@@ -1,4 +1,4 @@
-firebaseRefURL = "https://luminous-torch-1983.firebaseio.com/";
+var firebaseRefURL = "https://luminous-torch-1983.firebaseio.com/";
 var firebaseRef = new Firebase("https://luminous-torch-1983.firebaseio.com/");
 var groupsRef = new Firebase(firebaseRefURL + "groups/");
 var geoRef = new Firebase(firebaseRefURL + "geo/");
@@ -62,6 +62,7 @@ function addMessageToGroup(groupID, data, format) {
 
 function renderGroup(groupID) {
 	curGroupID = groupID;
+	alert(curGroupID);
 	$.get( "static_pages/show_group.html", function( data ) {
 		$("#container").html(data);
 		$("#groupName").text("My Group");
