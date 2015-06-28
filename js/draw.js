@@ -52,7 +52,9 @@ groupsRef.on("value", function(snapshot) {
 	  return d;
 	});
 
-	var svgContainer = d3.select("body").append("svg")
+	if(d3.select("body").select("svg").empty()){
+		
+	var svgContainer = d3.select("body").insert("svg")
                                      .attr("width", width)
                                      .attr("height", height);
 
@@ -88,6 +90,7 @@ var text = svgContainer.selectAll("text")
                 .attr("font-size", "20px")
 				.attr("text-align", "center")
                  .attr("fill", "white");
+
 
 	var force = d3.layout.force()
 		.nodes(nodes)
@@ -158,6 +161,7 @@ var text = svgContainer.selectAll("text")
 		});
 	  };
 	}
+}
 }, function(errorObject) {
 	console.log(errorObject.code);
 });
