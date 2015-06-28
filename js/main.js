@@ -120,4 +120,3 @@ $("#more").click(function() {
 function alerter() {
 	alert("here");
 }
-

@@ -6,7 +6,10 @@
   	<ul id='example-messages' class="example-chat-messages"></ul>
 
   	<footer>
-    	<input type='text' id='messageInput'  placeholder='Type a message...'>
+  		<div>
+	    	<input type='text' id='messageInput'  placeholder='Type a message...'>
+	    	<button id='cameraIcon'><img src="camera.png"></button>
+	    </div>
   	</footer>
 
 	<script>
@@ -42,6 +45,14 @@
       			messageField.val('');
     		}
   		});	
+
+		document.getElementById("cameraIcon").onclick = function() {
+			filepicker.setKey("AGj4qAOXnS0aCBeW4Z2aUz");
+		    filepicker.pickAndStore({mimetype:"image/*"},{},
+		      function(InkBlobs){
+		        console.log(JSON.stringify(InkBlobs));
+		    });
+		}
 
 $("span.right").click(function() {
 	$("#chatBox").hide(500);
