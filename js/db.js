@@ -1,4 +1,5 @@
 var firebaseRef = new Firebase("https://luminous-torch-1983.firebaseio.com/");
+var groupsRef = new Firebase(firebaseRef + "groups/");
 var geoFire = new GeoFire(firebaseRef);
 
 var RADIUS = 10.5;
