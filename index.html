@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="style.css">
-	<script src="db.js"></script>
+	<script src="js/db.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
 <body>
@@ -22,5 +22,14 @@
 	<script src="js/vendor/geofire.min.js"></script>
 	<script src="js/login.js"></script>
 	<script src="js/db.js"></script>
+
+	<div id="showgroup">
+		Testing Show Group
+	</div>
+	<script>
+	$("#showgroup").click(function(){
+		renderGroup('1234');
+	});
+	</script>
 </body>
 </html>

@@ -55,3 +55,12 @@ function addMessageToGroup(groupID, data, format) {
 		return
 	}
 }
+
+function renderGroup(groupID) {
+	$.get( "static_pages/show_group.html", function( data ) {
+		$("body").html(data);
+		$("#groupName").text("My Group");
+		$("#groupMessages").text("Random text");
+		var groupRef = new firebase(groupsRef + groupID);
+	});
+}
