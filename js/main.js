@@ -1,3 +1,4 @@
+var globalAuthData;
 var firebaseRefURL = "https://luminous-torch-1983.firebaseio.com/";
 var firebaseRef = new Firebase("https://luminous-torch-1983.firebaseio.com/");
 var groupsRef = new Firebase(firebaseRefURL + "groups/");
