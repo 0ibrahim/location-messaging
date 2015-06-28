@@ -8,7 +8,7 @@ var curGroupID;
 
 var RADIUS = 10.5;
 
-function createGroup(groupName) {
+function createGroup(groupName, radius) {
 	// Should make sure the name doesn't already exist!
 	if(navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function(position) {
@@ -18,6 +18,7 @@ function createGroup(groupName) {
 				name: groupName, 
 				location: [latitude, longitude],
 				viewcount: 0,
+				r: radius,
 			});
 			geoFire.set(groupIDRef.key(), [latitude, longitude]).then(function() {
 			  console.log("Provided key has been added to GeoFire");
@@ -91,11 +92,21 @@ function showGroup(groupID) {
 $("#groupNameInput").keypress(function (e) {
     if (e.keyCode == 13) {
     	var groupName = $("#groupNameInput").val();
-    	createGroup(groupName);
+    	// validation
+    	var radius = $("#radius").val() || 15;
+    	createGroup(groupName, radius);
     	$("#groupNameInput").val("");
+    	$("#radius").val("");
     	unDimAddGroup();
     }
 });
+
+$("#radius").keypress(function(e) {
+	if(e.keyCode == 13) {
+		var radius = $("#radius").val() || 15;
+		cityCircle.setRadius(parseInt(radius));
+	}
+})
 
 function unDimAddGroup() {
 	$("#fade").fadeOut(500);
