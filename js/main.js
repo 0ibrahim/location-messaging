@@ -102,6 +102,7 @@ $("#fade").click(unDimAddGroup);
 $("#more").click(function() {
 	$("#fade").fadeIn(500);
 	$("#addgroup").fadeIn(500);
+	drawmap();
 	$("#groupNameInput").focus();
 });
 
