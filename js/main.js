@@ -121,3 +121,4 @@ $("#more").click(function() {
 	drawmap();
 	$("#groupNameInput").focus();
 });
+ 

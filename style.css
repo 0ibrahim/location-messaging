@@ -47,6 +47,24 @@
 	max-width:50%;
 }
 
+#logo
+{
+	position: absolute;
+	right: 1%;
+	bottom:90%;
+	max-height:10%;
+	max-width:10%;
+}
+#Moto
+{
+	position: absolute;
+	right: 1%;
+	bottom:85%;
+	color:#e2eaf3;
+    font-family:cursive;
+    font-size:3em;
+}
+
 .black_overlay{
   position: absolute;
   top: 0%;
