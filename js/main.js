@@ -67,10 +67,10 @@ function renderGroups() {
 
 function addMessageToGroup(authData, groupID, data, format) {
 	if(groupID && data) {
-		groupRef = groupsRef.child(groupID);
+		var groupRef = groupsRef.child(groupID);
 		if(groupRef) {
-			alert("here");
-			var messagesRef = new Firebase(groupRef.toString() + "/messages/");
+			alert(authData.facebook.displayName);
+			var messagesRef = groupRef.child("messages");
 			messagesRef.push({
 				name: authData.facebook.displayName,
 				format: format, 
@@ -80,7 +80,7 @@ function addMessageToGroup(authData, groupID, data, format) {
 	}
 	else {
 		alert("Error");
-		return
+		return;
 	}
 }
 
