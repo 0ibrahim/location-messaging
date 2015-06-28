@@ -2,6 +2,10 @@ var firebaseRef = new Firebase("https://luminous-torch-1983.firebaseio.com/");
 var groupsRef = new Firebase(firebaseRef + "groups/");
 var geoFire = new GeoFire(firebaseRef);
 
+var groupRef;
+var curGroupID;
+var messagesRef;
+
 var RADIUS = 10.5;
 
 function createGroup(groupName) {
@@ -58,10 +62,10 @@ function addMessageToGroup(groupID, data, format) {
 }
 
 function renderGroup(groupID) {
+	curGroupID = groupID;
 	$.get( "static_pages/show_group.html", function( data ) {
-		$("body").html(data);
+		$("#container").html(data);
 		$("#groupName").text("My Group");
 		$("#groupMessages").text("Random text");
-		var groupRef = new firebase(groupsRef + groupID);
 	});
 }
