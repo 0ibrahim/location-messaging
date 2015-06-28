@@ -1,6 +1,7 @@
 var firebaseRef = new Firebase("https://luminous-torch-1983.firebaseio.com/");
 var groupsRef = new Firebase(firebaseRef + "groups/");
-var geoFire = new GeoFire(firebaseRef);
+var geoRef = new Firebase(firebaseRef + "geo/");
+var geoFire = new GeoFire(geoRef);
 
 var RADIUS = 10.5;
 
@@ -9,7 +10,7 @@ function createGroup(groupName) {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			var latitude = position.coords.latitude;
 			var longitude = position.coords.longitude;
-			groupsRef.push({name: groupName, location: [latitude, longitude]});
+			var groupID = groupsRef.push({name: groupName, location: [latitude, longitude]});
 			geoFire.set(groupName, [latitude, longitude]).then(function() {
 			  console.log("Provided key has been added to GeoFire");
 			}, function(error) {
@@ -40,6 +41,7 @@ function getGroupFromPosition(position) {
 }
 
 document.getElementById('new-group').onclick = function() {createGroup('testing')};
+document.getElementById('near-me').onclick = getGroups
 
 function addMessageToGroup(groupID, data, format) {
 	if(groupID && data) {
