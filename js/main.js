@@ -44,8 +44,13 @@ function getGroupFromPosition(position) {
 		center: [position.coords.latitude, position.coords.longitude],
 		radius: RADIUS,
 	});
+	data = {};
 	var onKeyEnteredRegistration = geoQuery.on("key_entered", function(key, location, distance) {
-	  console.log(key + " entered query at " + location + " (" + distance + " km from center)");
+		data[key] = {location: location, distance: distance};
+	  	console.log(key + " entered query at " + location + " (" + distance + " km from center)");
+	});
+	var onDataReadyRegistration = geoQuery.on("ready", function(){
+		console.log("data ready");
 	});
 }
 
@@ -116,7 +121,4 @@ $("#more").click(function() {
 	drawmap();
 	$("#groupNameInput").focus();
 });
-
-function alerter() {
-	alert("here");
-}
+ 
