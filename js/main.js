@@ -83,3 +83,13 @@ function showGroup(groupID) {
 		$("#chatBox").show(500);
 	});
 }
+
+$("#groupNameInput").keypress(function (e) {
+    if (e.keyCode == 13) {
+    	var groupName = $("#groupNameInput").val();
+    	createGroup(groupName);
+    	$("#groupNameInput").val("");
+    }
+});
+
+
