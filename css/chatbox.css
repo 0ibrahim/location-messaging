@@ -33,16 +33,21 @@
   line-height: 22px;
   color: #666; }
   .example-chat header {
-    background-color: #EEE;
+    padding: 10px; 
+    background-color: #ABC;
     background: -webkit-linear-gradient(top, #EEEEEE, #DDDDDD);
     background: linear-gradient(to bottom, #EEEEEE, #DDDDDD);
     box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.9), 0px 1px 2px rgba(0, 0, 0, 0.1);
     border-radius: 3px 3px 0px 0px;
     border-bottom: 1px solid #CCC;
-    line-height: 24px;
-    font-size: 12px;
-    text-align: center;
+    line-height: 40px;
+    font-size: 24px;
     color: #999; }
+  .example-chat header span.left {
+  }
+  .example-chat header span.right { 
+    float: right;
+  }
   .example-chat input {
     box-sizing: border-box;
     box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.2);
@@ -91,7 +96,7 @@
   .example-chat footer {
     display: block;
     padding: 10px; }
-    .example-chat input {
+    .example-chat footer input {
       border: 1px solid #ced3db;
       height: 40px; }
 
