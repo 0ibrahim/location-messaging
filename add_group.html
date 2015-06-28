@@ -8,46 +8,42 @@
 
 <!-- CHAT MARKUP -->
 <div class="example-chat l-demo-container">
-  <header>Firebase Chat Demo</header>
+  <header>Add Group</header>
 
   <div class='example-chat-toolbar'>
     <label for="nameInput">Username:</label>
-    <input type='text' id='nameInput' placeholder='enter a username...'>
+    <input type='text' id='nameInput' placeholder='enter a groupname...'>
   </div>
 
   <ul id='example-messages' class="example-chat-messages"></ul>
 
-  <footer>
-    <input type='text' id='messageInput'  placeholder='Type a message...'>
-  </footer>
 </div>
 
 <!-- CHAT JAVACRIPT -->
 <script>
   // CREATE A REFERENCE TO FIREBASE
-  var messagesRef = new Firebase('https://luminous-heat-2881.firebaseio.com/');
+  var messagesRef = new Firebase('https://luminous-heat-2881.firebaseio.com/groups');
 
   // REGISTER DOM ELEMENTS
-  var messageField = $('#messageInput');
   var nameField = $('#nameInput');
   var messageList = $('#example-messages');
 
   // LISTEN FOR KEYPRESS EVENT
-  messageField.keypress(function (e) {
+  nameField.keypress(function (e) {
     if (e.keyCode == 13) {
       //FIELD VALUES
       var username = nameField.val();
-      var message = messageField.val();
 
       //SAVE DATA TO FIREBASE AND EMPTY FIELD
-      messagesRef.push({name:username, text:message});
-      messageField.val('');
+      messagesRef.push({name:username});
+      nameField.val('');
     }
   });
 
   // Add a callback that is triggered for each chat message.
   messagesRef.limitToLast(10).on('child_added', function (snapshot) {
     //GET DATA
+    var key = snapshot.key();
     var data = snapshot.val();
     var username = data.name || "anonymous";
     var message = data.text;
@@ -56,7 +52,7 @@
     var messageElement = $("<li>");
     var nameElement = $("<strong class='example-chat-username'></strong>")
     nameElement.text(username);
-    messageElement.text(message).prepend(nameElement);
+    messageElement.text('').prepend(nameElement);
 
     //ADD MESSAGE
     messageList.append(messageElement)

@@ -1,4 +1,4 @@
-var ref = new Firebase("https://luminous-torch-1983.firebaseio.com");
+var ref = new Firebase("https://luminous-heat-2881.firebaseio.com");
 ref.onAuth(function(authData) {
 	if (authData !== null) {
 		console.log("Authenticated successfully with payload:", authData);
