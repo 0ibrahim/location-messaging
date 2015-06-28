@@ -1,6 +1,7 @@
+firebaseRefURL = "https://luminous-torch-1983.firebaseio.com/";
 var firebaseRef = new Firebase("https://luminous-torch-1983.firebaseio.com/");
-var groupsRef = new Firebase(firebaseRef + "groups/");
-var geoRef = new Firebase(firebaseRef + "geo/");
+var groupsRef = new Firebase(firebaseRefURL + "groups/");
+var geoRef = new Firebase(firebaseRefURL + "geo/");
 var geoFire = new GeoFire(geoRef);
 
 var groupRef;
